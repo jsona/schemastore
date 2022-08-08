@@ -1,0 +1,25 @@
+{
+  value: {
+    include: [ @describe("File to include") @def("Include")
+      "**/*.schema.jsona",
+    ],
+    exclude: [ @describe("File to exclude") @def("Exclude")
+      "schema.jsona",
+    ],
+    formatting: { @describe("Formatter options") @def("FormattingOptions")
+      indent_string: true, @describe("Indentation to use, should be tabs or spaces but technically could be anything")
+      trailing_comma: true, @describe("Put trailing commas for multiline arrays/objects")
+      trailing_newline: true, @describe("Add trailing newline to the source")
+    },
+    rules: [ @describe("Options for schema validation and completion")
+      {
+        name: "jsonaschema", @describe("The name of the rule")
+        include: [], @ref("Include")
+        exclude: [], @ref("Exclude")
+        path: "./schemas/schema.json",  @describe("A local file path to the schema, overrides `url` if set")
+        url: "https://jsona.jsonschema.com/schemastore/schema.jsona", @describe("A full absolute Url to the schema")
+        formatting: {}, @ref("FormattingOptions")
+      }
+    ]
+  }
+}

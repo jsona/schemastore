@@ -1,0 +1,62 @@
+{
+  value: {
+  },
+  annotations: {
+    openapi: { @describe("Openapi object without path-items")
+      openapi: "",
+      servers: [
+        {
+          url: "/"
+        }
+      ],
+      info: {
+        description: "",
+        version: "",
+        title: "",
+        termsOfService: "",
+        contact: {
+          name: "",
+          url: "",
+          email: "",
+        },
+        license: {
+          name: "",
+          identifier: "",
+          url: "",
+        },
+        tags: [
+          {
+            name: "",
+            description: "",
+            externalDocs: {
+              description: "",
+              url: "",
+            }
+          }
+        ]
+      },
+      components: { @schema({type:"any"})
+      }
+    },
+    endpoint: { @describe("Define a endpoint")
+      summary: "",
+      description: "",
+      tags: [
+        "",
+      ],
+      security: [
+      ],
+      external_docs: {
+          description: "",
+          url: "",
+      },
+      extensions: { @schema({type:"any"})
+      },
+      deprecated: false,
+    },
+    describe: "", @describe("Give a title")
+    optional: null, @describe("Marker field is optional")
+    save: "", @describe("Def a type")
+    use: "", @describe("Ref a type")
+  }
+}

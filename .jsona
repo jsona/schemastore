@@ -1,0 +1,11 @@
+{
+  rules: [
+    {
+      name: "jsonaschema",
+      include: [
+        "**/*.schema.jsona",
+      ],
+      path: "schemas/schema.jsona"
+    }
+  ]
+}

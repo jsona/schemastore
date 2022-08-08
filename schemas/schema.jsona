@@ -1,0 +1,119 @@
+{
+  value: {}, @schema({type:"any"})
+  annotations: {
+    schema: { @describe("Custom a json schema")
+      type: "any",
+     
+      @schema({
+        enum: [
+          "any",
+          "array",
+          "boolean",
+          "integer",
+          "null",
+          "number",
+          "object",
+          "string",
+        ],
+      })
+
+      // For string
+      maximum: 10,
+      minimum: 5,
+      exclusiveMaximum: false,
+      exclusiveMinimum: false,
+      multipleOf: 2.0,
+
+      // For string
+      maxLength: 16,
+      minLength: 6,
+      pattern: "[abc]+",
+      format: "uuid",
+
+      // For array
+      items: [ @compound("oneOf")
+        {}, @schema({"$ref":"#"})
+        [
+          {}, @schema({"$ref":"#"})
+        ],
+      ],
+      maxItems: 10,
+      minItems: 5,
+      uniqueItems: false,
+      additionalItems: [ @compound("oneOf")
+        true,
+        {}, @schema({"$ref":"#"})
+      ],
+      contains: {}, @schema({"$ref":"#"})
+
+      // For object
+      properties: {
+        any: { @pattern(".*")
+        },
+      },
+      max_properties: 10,
+      min_properties: 5,
+      required: [
+        "key",
+      ],
+      patternProperties: {
+        any: { @pattern(".*")
+        },
+      },
+      additionalProperties: [ @compound("oneOf")
+        true,
+        {}, @schema({"$ref":"#"})
+      ],
+
+      enum: [
+        {}, @schema({type:"any"})
+      ],
+      const: { @schema({type:"any"})
+      },
+
+      not: [
+        {}, @schema({"$ref":"#"})
+      ],
+      allOf: [
+        {}, @schema({"$ref":"#"})
+      ],
+      anyOf: [
+        {}, @schema({"$ref":"#"})
+      ],
+      oneOf: [
+        {}, @schema({"$ref":"#"})
+      ],
+      if: [ @compound("oneOf")
+        true,
+        {}, @schema({"$ref":"#"})
+      ],
+      then: [ @compound("oneOf")
+        true,
+        {}, @schema({"$ref":"#"})
+      ],
+      else: [ @compound("oneOf")
+        true,
+        {}, @schema({"$ref":"#"})
+      ],
+
+      title: "",
+      description: "",
+      default: { @schema({})
+      },
+      examples: [
+        {}, @schema({type:"any"})
+      ],
+      readOnly: false,
+      writeOnly: false,
+    },
+    describe: "", @describe("Add a description")
+    required: null, @describe("Mark a field is required")
+    pattern: "", @describe("Mark a filed is pattern properity")
+    def: "", @describe("Def a type")
+    ref: "", @describe("Ref a type")
+    compound: "anyOf", @schema({
+      enum: ["anyOf","oneOf","allOf"],
+    })
+    example: {}, @schema({type:"any"})
+  },
+}
