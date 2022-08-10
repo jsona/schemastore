@@ -5,7 +5,7 @@
     "fileMatch": []
   },
   {
-    "name": "dot",
+    "name": "dotjsona",
     "description": "jsona config file",
     "fileMatch": [
       "**/.jsona"
