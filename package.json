@@ -1,0 +1,20 @@
+{
+  "name": "@jsona/schemastore",
+  "version": "0.1.0",
+  "description": "A collection of JSONA schema files.",
+  "main": "index.json",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jsona/schemastore.git"
+  },
+  "keywords": [],
+  "author": "sigoden <sigoden@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jsona/schemastore/issues"
+  },
+  "homepage": "https://github.com/jsona/schemastore#readme"
+}
