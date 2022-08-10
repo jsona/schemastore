@@ -57,11 +57,11 @@
       "",
     ],
     describe: "", @describe("Give a title")
+    trans: "", @describe("Transform data")
     group: null, @describe("Mark as case group")
     eval: null, @describe("Use js expr to generate data (in req) and verify data(in res)")
     mock: null, @describe("Use mock function to generate data")
     file: null, @describe("Use a file")
-    trans: "", @describe("Transform data")
     every: null, @describe("A set of assertions are passed before the test passes")
     some: null, @describe("If one of a set of assertions passes, the test passes")
     partial: null, @describe("Mark only partial verification instead of congruent verification")
