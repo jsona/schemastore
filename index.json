@@ -28,7 +28,8 @@
     "fileMatch": [
       "*.openapi.jsona",
       "api*.jsona"
-    ]
+    ],
+    "url": "https://cdn.jsdelivr.net/gh/jsona/schemastore/schemas/openapi.jsona"
   },
   {
     "name": "schema",
@@ -36,6 +37,7 @@
     "fileMatch": [
       "schema*/*.jsona",
       "*.schema.jsona"
-    ]
+    ],
+    "url": "https://cdn.jsdelivr.net/gh/jsona/schemastore/schemas/schema.jsona"
   }
 ]
