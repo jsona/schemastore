@@ -1,0 +1,4 @@
+{
+  value: { @schema({type:"any"})
+  }
+}

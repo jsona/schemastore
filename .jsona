@@ -3,7 +3,7 @@
     {
       name: "jsonaschema",
       include: [
-        "**/*.schema.jsona",
+        "schemas/*.jsona",
       ],
       path: "schemas/schema.jsona"
     }

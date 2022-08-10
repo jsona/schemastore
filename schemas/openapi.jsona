@@ -1,0 +1,83 @@
+{
+  value: {
+    endpoint: { @pattern(".*")
+      route: "",
+      req: {
+        query: {
+        },
+        params: {
+        },
+        headers: {
+
+        },
+        body: { @schema({type:"any"})
+        }
+      },
+      res: {
+        200: { @pattern("\\d{3}") @schema({type:"any"})
+        }
+      }
+    },
+  },
+  annotations: {
+    openapi: [ @compound("oneOf")
+      { @describe("Openapi object without path-items")
+        openapi: "",
+        servers: [
+          {
+            url: "/"
+          }
+        ],
+        info: {
+          description: "",
+          version: "",
+          title: "",
+          termsOfService: "",
+          contact: {
+            name: "",
+            url: "",
+            email: "",
+          },
+          license: {
+            name: "",
+            identifier: "",
+            url: "",
+          },
+          tags: [
+            {
+              name: "",
+              description: "",
+              externalDocs: {
+                description: "",
+                url: "",
+              }
+            }
+          ]
+        },
+        components: { @schema({type:"any"})
+        }
+      },
+      null,
+    ],
+    endpoint: { @describe("Define a endpoint")
+      summary: "",
+      description: "",
+      tags: [
+        "",
+      ],
+      security: [
+      ],
+      external_docs: {
+          description: "",
+          url: "",
+      },
+      extensions: { @schema({type:"any"})
+      },
+      deprecated: false,
+    },
+    describe: "", @describe("Give a title")
+    optional: null, @describe("Marker field is optional")
+    save: "", @describe("Def a type")
+    use: "", @describe("Ref a type")
+  }
+}

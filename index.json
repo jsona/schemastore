@@ -1,0 +1,41 @@
+[
+  {
+    "name": "noschema",
+    "description": "file without schema",
+    "fileMatch": [],
+    "url": "https://cdn.jsdelivr.net/gh/jsona/schemastore/schemas/noschema.jsona"
+  },
+  {
+    "name": "dot",
+    "description": "jsona config file",
+    "fileMatch": [
+      ".jsona"
+    ],
+    "url": "https://cdn.jsdelivr.net/gh/jsona/schemastore/schemas/dotjsona.jsona"
+  },
+  {
+    "name": "apitest",
+    "description": "apitest file",
+    "fileMatch": [
+      "*.apitest.jsona",
+      "test*/*.jsona"
+    ],
+    "url": "https://cdn.jsdelivr.net/gh/jsona/schemastore/schemas/apitest.jsona"
+  },
+  {
+    "name": "openapi",
+    "description": "openapi file",
+    "fileMatch": [
+      "*.openapi.jsona",
+      "api*.jsona"
+    ]
+  },
+  {
+    "name": "schema",
+    "description": "jsonaschema file",
+    "fileMatch": [
+      "schema*/*.jsona",
+      "*.schema.jsona"
+    ]
+  }
+]
