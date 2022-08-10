@@ -9,7 +9,7 @@
     "name": "dot",
     "description": "jsona config file",
     "fileMatch": [
-      ".jsona"
+      "**/.jsona"
     ],
     "url": "https://cdn.jsdelivr.net/gh/jsona/schemastore/schemas/dotjsona.jsona"
   },
@@ -17,8 +17,8 @@
     "name": "apitest",
     "description": "apitest file",
     "fileMatch": [
-      "*.apitest.jsona",
-      "test*/*.jsona"
+      "**/*.apitest.jsona",
+      "**/test*/*.jsona"
     ],
     "url": "https://cdn.jsdelivr.net/gh/jsona/schemastore/schemas/apitest.jsona"
   },
@@ -26,8 +26,8 @@
     "name": "openapi",
     "description": "openapi file",
     "fileMatch": [
-      "*.openapi.jsona",
-      "api*.jsona"
+      "**/*.openapi.jsona",
+      "**/api*.jsona"
     ],
     "url": "https://cdn.jsdelivr.net/gh/jsona/schemastore/schemas/openapi.jsona"
   },
@@ -35,8 +35,7 @@
     "name": "schema",
     "description": "jsonaschema file",
     "fileMatch": [
-      "schema*/*.jsona",
-      "*.schema.jsona"
+      "**/*.schema.jsona"
     ],
     "url": "https://cdn.jsdelivr.net/gh/jsona/schemastore/schemas/schema.jsona"
   }
