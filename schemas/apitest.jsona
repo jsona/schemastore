@@ -1,63 +1,75 @@
 {
-  value: { @def("Testgroup")
-    any: [ @pattern("^(?!req|res|run)([a-z0-9]+)$") @compound("oneOf")
-      { @def("Testcase")
+  value: { @def("Testgroup") @schema({additionalProperties:false})
+    any: [ @pattern("^(?!req|res|run)([a-z0-9_]+)$") @compound("oneOf")
+      { @def("Testcase") @describe("A test case") @schema({additionalProperties:false})
         req: {
-          url: "",
-          method: "get", @schema({enum:["get","post","delete","options","put","head"]})
-          query: {
-            any: {} @pattern(".*")  @schema({type:"any"})
+          url: "/posts/{id}", @describe("Request url")
+          method: "get",
+            @describe("Request method")
+            @schema({enum:["get","post","delete","options","put","head","patch"]})
+          query: { @describe("Request header object")
+            any: { @pattern(".*") @anytype
+            },
           },
-          params: {
-            any: {} @pattern(".*")  @schema({type:"any"})
+          params: { @describe("Request path params")
+            any: { @pattern(".*") @anytype
+            },
           },
-          headers: {
-            any: {} @pattern(".*")  @schema({type:"any"})
+          headers: { @describe("Request headers")
+            any: { @pattern(".*") @anytype
+            },
           },
-          body: { @schema({type:"any"})
-          }
+          body: { @anytype @describe("Request body data")
+          },
         },
         res: {
-          status: 200,
-          body: {}, @schema({type:"any"})
+          status: 200, @describe("Response status code")
+          headers: { @describe("Response headers, skip check if omitted")
+            any: { @pattern(".*") @anytype
+            },
+          },
+          body: {}, @anytype @describe("Response body data")
         },
         run: { @describe("Control test execution")
           skip: "", @describe("Skip the test when eval true")
           delay: 1000, @describe("Run the test case after waiting for a period of time")
           retry: {
-            stop: "",  @describe("Whether to stop retry")
+            stop: "", @describe("Whether to stop retry")
             delay: 1000, @describe("Interval between each retry (ms)")
           },
           loop: {
-            items: [ @compound("oneOf") @describe("Iter value pass to `$run.item`")
-              "",
+            items: [ @describe("Iter value pass to `$run.item`")
+              "a",
               [
-                "",
-              ]
+                "a",
+              ],
             ],
             delay: 1000, @describe("Interval between each loop (ms)")
           },
           dump: true, @describe("Force print req/res data when true")
-        }
+        },
       },
-      { @ref("Testgroup")
-      }
-    ]
+      { @ref("Testgroup") @describe("A test group")
+      },
+    ],
   },
   annotations: {
-    module: "", @describe("Import submodule")
-    jslib: "", @describe("Import user-defined functions")
-    mixin: "", @describe("Import mixin file")
-    client: [ @compound("oneOf")  @describe("Setup client or use client")
-      {
-        name: "", 
-        kind: "", @schema({enum:["http", "echo"]})
-        options: {}, @schema({type:"any"})
+    module: "auth", @describe("Import submodule")
+    jslib: "lib", @describe("Import user-defined functions")
+    mixin: "mixin", @describe("Import mixin file")
+    client: [ @compound("oneOf") @describe("Setup client or use client")
+      { @schema({additionalProperties:false}) // For define a client
+        name: "apiv1",
+        kind: "http", @schema({enum:["http","echo"]})
+        options: { @anytype
+          baseURL: "http://localhost:3000/api/v2",
+          timeout: 30000,
+        },
       },
-      "",
+      "apiv1", // For use a client
     ],
-    describe: "", @describe("Give a title")
-    trans: "", @describe("Transform data")
+    describe: "Test login", @describe("Add a test description")
+    trans: `JSON.stringify($)`, @describe("Transform data")
     group: null, @describe("Mark as case group")
     eval: null, @describe("Use js expr to generate data (in req) and verify data(in res)")
     mock: null, @describe("Use mock function to generate data")
@@ -68,5 +80,5 @@
     type: null, @describe("Mark only verifies the type of data")
     optional: null, @describe("Marker field is optional")
     nullable: null, @describe("Marker field can be null")
-  }
+  },
 }

@@ -1,37 +1,37 @@
 [
   {
     "name": "noschema",
-    "description": "file without schema",
+    "description": "a helper to get rid of schema info",
     "fileMatch": []
   },
   {
     "name": "dotjsona",
-    "description": "jsona config file",
+    "description": "A jsona config file",
     "fileMatch": [
-      "**/.jsona"
+      ".jsona"
     ]
   },
   {
     "name": "apitest",
-    "description": "apitest file",
+    "description": "A apitest file",
     "fileMatch": [
-      "**/*.apitest.jsona",
-      "**/*apitest*/*.jsona"
+      "*.apitest.jsona",
+      "*apitest*/*.jsona"
     ]
   },
   {
     "name": "openapi",
-    "description": "openapi file",
+    "description": "A openapi file",
     "fileMatch": [
-      "**/*.openapi.jsona",
-      "**/api*.jsona"
+      "*.openapi.jsona",
+      "/api*.jsona"
     ]
   },
   {
     "name": "schema",
-    "description": "jsonaschema file",
+    "description": "A jsona schema file",
     "fileMatch": [
-      "**/*.schema.jsona"
+      "*.schema.jsona"
     ]
   }
 ]

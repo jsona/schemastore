@@ -2,7 +2,13 @@ const fs = require("fs");
 const path = require("path");
 const store = require("./index.json");
 const pkg = require("./package.json");
-const getUrl = name => `https://cdn.jsdelivr.net/npm/${pkg.name}@${pkg.version}/${name}`
+const URL_PATTERN = process.env.URL_PATTERN || "https://cdn.jsdelivr.net/npm/{{pkgName}}@{{pkgVersion}}/{{name}}";
+const getUrl = name => {
+  return URL_PATTERN
+    .replace(/{{pkgName}}/g, pkg.name)
+    .replace(/{{pkgVersion}}/g, pkg.version)
+    .replace(/{{name}}/g, name)
+}
 const getPath = subpath => path.resolve(__dirname, subpath);
 
 fs.rmSync(getPath("pkg"), { recursive: true, force: true });

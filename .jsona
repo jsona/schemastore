@@ -1,9 +1,12 @@
 {
+  exclude: [
+    "schemas/dotjsona.jsona",
+  ],
   rules: [
     {
       name: "jsonaschema",
       include: [
-        "**/schemas/*.jsona",
+        "schemas/*.jsona",
       ],
       path: "schemas/schema.jsona"
     }

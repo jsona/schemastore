@@ -1,23 +1,29 @@
 {
-  value: {}, @schema({type:"any"})
+  value: {
+    value: {}, @anytype @describe("The JSONA value")
+    annotations: {}, @describe("Must be an object, key is annotation name(without @), value is annotation value")
+  },
   annotations: {
-    schema: { @describe("Custom a json schema")
-      type: "any",
-     
-      @schema({
-        enum: [
-          "any",
-          "array",
-          "boolean",
-          "integer",
-          "null",
-          "number",
-          "object",
-          "string",
+    schema: { @describe("Use custom schema")
+      type: [ @compound("oneOf")
+        "object", @def("SchemaType")
+          @schema({
+            enum: [
+              "array",
+              "boolean",
+              "integer",
+              "null",
+              "number",
+              "object",
+              "string",
+            ],
+          })
+        [
+          "object", @ref("SchemaType")
         ],
-      })
+      ],
 
-      // For string
+      // For number
       maximum: 10,
       minimum: 5,
       exclusiveMaximum: false,
@@ -29,6 +35,30 @@
       minLength: 6,
       pattern: "[abc]+",
       format: "uuid",
+      // For object
+      properties: {
+        any: { @pattern(".*")
+        },
+      },
+      maxProperties: 10,
+      minProperties: 5,
+      required: [
+        "key",
+      ],
+      patternProperties: {
+        any: { @pattern(".*")
+        },
+      },
+      additionalProperties: [ @compound("oneOf")
+        true,
+        {}, @schema({"$ref":"#"})
+      ],
+
+      enum: [
+        {}, @anytype
+      ],
+      const: { @anytype
+      },
 
       // For array
       items: [ @compound("oneOf")
@@ -46,31 +76,7 @@
       ],
       contains: {}, @schema({"$ref":"#"})
 
-      // For object
-      properties: {
-        any: { @pattern(".*")
-        },
-      },
-      max_properties: 10,
-      min_properties: 5,
-      required: [
-        "key",
-      ],
-      patternProperties: {
-        any: { @pattern(".*")
-        },
-      },
-      additionalProperties: [ @compound("oneOf")
-        true,
-        {}, @schema({"$ref":"#"})
-      ],
-
-      enum: [
-        {}, @schema({type:"any"})
-      ],
-      const: { @schema({type:"any"})
-      },
-
+      // compound
       not: [
         {}, @schema({"$ref":"#"})
       ],
@@ -96,24 +102,27 @@
         {}, @schema({"$ref":"#"})
       ],
 
+      // common
       title: "",
       description: "",
-      default: { @schema({})
+      default: { @anytype
       },
       examples: [
-        {}, @schema({type:"any"})
+        {}, @anytype
       ],
       readOnly: false,
       writeOnly: false,
     },
     describe: "", @describe("Add a description")
+    anytype: null, @describe("The type of value can be any")
     required: null, @describe("Mark a field is required")
-    pattern: "", @describe("Mark a filed is pattern properity")
-    def: "", @describe("Def a type")
-    ref: "", @describe("Ref a type")
-    compound: "anyOf", @schema({
-      enum: ["anyOf","oneOf","allOf"],
-    })
-    example: {}, @schema({type:"any"})
+    example: null, @describe("Add value to examples")
+    default: null, @describe("Set value as default")
+    pattern: "", @describe("Declare the key-value is a member of patternProperties other than properties")
+    def: "User", @describe("Def a type which can be reused with @ref")
+    ref: "User", @describe("Ref a type which have been defined in @def")
+    compound: "anyOf",
+      @describe("Declare the array is for compound keywords like anyOf,oneOf,anyOf other than array value")
+      @schema({enum:["anyOf","oneOf","allOf"]})
   },
 }

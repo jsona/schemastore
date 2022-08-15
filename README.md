@@ -1,3 +1,3 @@
 # SchemaStore
 
-A collection of JSONA schema files.
+A collection of JSONA Schema files.
