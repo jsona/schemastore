@@ -1,7 +1,7 @@
 {
   value: {
     value: {}, @anytype @describe("The JSONA value")
-    annotations: {}, @describe("Must be an object, key is annotation name(without @), value is annotation value")
+    annotations: {} @describe("Must be an object, key is annotation name(without @), value is annotation value")
   },
   annotations: {
     schema: { @describe("Use custom schema")
@@ -15,12 +15,12 @@
               "null",
               "number",
               "object",
-              "string",
-            ],
+              "string"
+            ]
           })
         [
-          "object", @ref("SchemaType")
-        ],
+          "object" @ref("SchemaType")
+        ]
       ],
 
       // For number
@@ -38,24 +38,24 @@
       // For object
       properties: {
         any: { @pattern(".*")
-        },
+        }
       },
       maxProperties: 10,
       minProperties: 5,
       required: [
-        "key",
+        "key"
       ],
       patternProperties: {
         any: { @pattern(".*")
-        },
+        }
       },
       additionalProperties: [ @compound("oneOf")
         true,
-        {}, @schema({"$ref":"#"})
+        {} @schema({"$ref":"#"})
       ],
 
       enum: [
-        {}, @anytype
+        {} @anytype
       ],
       const: { @anytype
       },
@@ -64,42 +64,42 @@
       items: [ @compound("oneOf")
         {}, @schema({"$ref":"#"})
         [
-          {}, @schema({"$ref":"#"})
-        ],
+          {} @schema({"$ref":"#"})
+        ]
       ],
       maxItems: 10,
       minItems: 5,
       uniqueItems: false,
       additionalItems: [ @compound("oneOf")
         true,
-        {}, @schema({"$ref":"#"})
+        {} @schema({"$ref":"#"})
       ],
       contains: {}, @schema({"$ref":"#"})
 
       // compound
       not: [
-        {}, @schema({"$ref":"#"})
+        {} @schema({"$ref":"#"})
       ],
       allOf: [
-        {}, @schema({"$ref":"#"})
+        {} @schema({"$ref":"#"})
       ],
       anyOf: [
-        {}, @schema({"$ref":"#"})
+        {} @schema({"$ref":"#"})
       ],
       oneOf: [
-        {}, @schema({"$ref":"#"})
+        {} @schema({"$ref":"#"})
       ],
       if: [ @compound("oneOf")
         true,
-        {}, @schema({"$ref":"#"})
+        {} @schema({"$ref":"#"})
       ],
       then: [ @compound("oneOf")
         true,
-        {}, @schema({"$ref":"#"})
+        {} @schema({"$ref":"#"})
       ],
       else: [ @compound("oneOf")
         true,
-        {}, @schema({"$ref":"#"})
+        {} @schema({"$ref":"#"})
       ],
 
       // common
@@ -108,10 +108,10 @@
       default: { @anytype
       },
       examples: [
-        {}, @anytype
+        {} @anytype
       ],
       readOnly: false,
-      writeOnly: false,
+      writeOnly: false
     },
     describe: "", @describe("Add a description")
     anytype: null, @describe("The type of value can be any")
@@ -121,8 +121,8 @@
     pattern: "", @describe("Declare the key-value is a member of patternProperties other than properties")
     def: "User", @describe("Def a type which can be reused with @ref")
     ref: "User", @describe("Ref a type which have been defined in @def")
-    compound: "anyOf",
+    compound: "anyOf"
       @describe("Declare the array is for compound keywords like anyOf,oneOf,anyOf other than array value")
       @schema({enum:["anyOf","oneOf","allOf"]})
-  },
+  }
 }

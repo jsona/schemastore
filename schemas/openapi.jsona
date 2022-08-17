@@ -5,42 +5,42 @@
       req: { @describe("Define request object")
         query: { @describe("Request header object")
           any: { @pattern(".*") @anytype
-          },
+          }
         },
         params: { @describe("Request path params")
           any: { @pattern(".*") @anytype
-          },
+          }
         },
         headers: { @describe("Request headers")
           any: { @pattern(".*") @anytype
-          },
+          }
         },
         body: { @anytype @describe("Request body data")
-        },
+        }
       },
       res: {
         200: [ @pattern("\\d{3}") @compound("anyOf")
           { @schema({additionalProperties:false})
             headers: { @describe("Response headers")
               any: { @pattern(".*") @anytype
-              },
+              }
             },
             body: { @describe("Response body data") @anytype
-            },
+            }
           },
           { @describe("Response body data") @anytype
-          },
-        ],
-      },
-    },
+          }
+        ]
+      }
+    }
   },
   annotations: {
     openapi: { @compound("oneOf") @describe("Global openapi object") @schema({type:["object","null"]})
       openapi: "3.0.2",
       servers: [
         {
-          url: "/v3",
-        },
+          url: "/v3"
+        }
       ],
       info: {
         title: "A demo api", @describe("The title of the application")
@@ -50,11 +50,11 @@
         contact: { @describe("Contact information for the exposed API")
           name: "API Support",
           url: "http://www.example.com/support",
-          email: "support@example.com",
+          email: "support@example.com"
         },
         license: { @describe("License information for the exposed API")
           name: "Apache 2.0", @required
-          url: "http://www.apache.org/licenses/LICENSE-2.0.html",
+          url: "http://www.apache.org/licenses/LICENSE-2.0.html"
         },
         tags: [
           {
@@ -62,27 +62,27 @@
             description: "Pets operations",
             externalDocs: { @def("ExternalDocs") @describe("Allows referencing an external resource for extended documentation")
               url: "https://example.com", @required
-              description: "Find more info here",
-            },
-          },
-        ],
+              description: "Find more info here"
+            }
+          }
+        ]
       },
       components: { @describe("Holds a set of reusable objects for different aspects of the OAS")
         securitySchemes: { @describe("An object to hold reusable Security Scheme Objects")
           name: [ @pattern(".*") @compound("oneOf")
             {
               type: "http",
-              scheme: "basic",
+              scheme: "basic"
             },
             {
               type: "apiKey",
               name: "api_key",
-              in: "header",
+              in: "header"
             },
             {
               type: "http",
               scheme: "bearer",
-              bearerFormat: "JWT",
+              bearerFormat: "JWT"
             },
             {
               type: "oauth2",
@@ -92,64 +92,70 @@
                   tokenUrl: "https://example.com/api/oauth/token",
                   refreshUrl: "https://example.com/api/oauth/refreshToken",
                   scopes: {
-                    "write:pets": "modify pets in your account", @pattern(".*")
-                  },
+                    "write:pets": "modify pets in your account" @pattern(".*")
+                  }
                 },
                 password: {}, @ref("OAuthFlowObject")
                 clientCredentials: {}, @ref("OAuthFlowObject")
-                authorizationCode: {}, @ref("OAuthFlowObject")
-              },
+                authorizationCode: {} @ref("OAuthFlowObject")
+              }
             },
             {
               type: "openIdConnect",
-              openIdConnectUrl: "https://example.com/api/openIdConnect",
-            },
-          ],
-        },
+              openIdConnectUrl: "https://example.com/api/openIdConnect"
+            }
+          ]
+        }
       },
       security: [ @describe("A declaration of which security mechanisms can be used for this operation")
         {
           jwt: [ @pattern(".*")
-            "write:pets",
-          ],
-        },
-      ],
+            "write:pets"
+          ]
+        }
+      ]
     },
     endpoint: { @describe("Define a endpoint")
       summary: "User login", @describe("An optional, string summary, intended to apply to all operations in this path")
       description: `User login with user and pass`, @describe("An optional, string description, intended to apply to all operations in this path. CommonMark syntax MAY be used for rich text representation")
       tags: [ @describe("A list of tags for API documentation control. Tags can be used for logical grouping of operations by resources or any other qualifier.")
-        "user",
+        "user"
       ],
       security: [ @describe("A declaration of which security mechanisms can be used for this operation")
         {
           jwt: [ @pattern(".*")
-            "write:pets",
-          ],
-        },
+            "write:pets"
+          ]
+        }
       ],
       externalDocs: {}, @ref("ExternalDocs")
       extensions: { @describe("Additional data can be added into here to extend the specification at certain points")
         name: { @pattern(".*") @anytype
-        },
+        }
       },
-      deprecated: false, @describe("Declares this operation to be deprecated. Consumers SHOULD refrain from usage of the declared operation")
+      deprecated: false @describe("Declares this operation to be deprecated. Consumers SHOULD refrain from usage of the declared operation")
     },
     withHeader: null, @describe("Also describe res headers")
     contentType: "application/xml", @describe("Set content-type")
     schema: { @describe("Use custom schema")
-      type: "object",
-        @schema({
-          enum: [
-            "array",
-            "boolean",
-            "integer",
-            "null",
-            "number",
-            "object",
-            "string",
-          ],
-        })
+      type: [ @compound("oneOf")
+        "object", @def("SchemaType")
+          @schema({
+            enum: [
+              "array",
+              "boolean",
+              "integer",
+              "null",
+              "number",
+              "object",
+              "string"
+            ]
+          })
+        [
+          "object" @ref("SchemaType")
+        ]
+      ],
+
 
       // For number
       maximum: 10,
@@ -167,67 +173,67 @@
       // For object
       properties: {
         any: { @pattern(".*")
-        },
+        }
       },
       maxProperties: 10,
       minProperties: 5,
       required: [
-        "key",
+        "key"
       ],
       patternProperties: {
         any: { @pattern(".*")
-        },
+        }
       },
       additionalProperties: [ @compound("oneOf")
         true,
-        {}, @schema({"$ref":"#"})
+        {} @schema({"$ref":"#"})
       ],
       // For array
       items: [ @compound("oneOf")
         {}, @schema({"$ref":"#"})
         [
-          {}, @schema({"$ref":"#"})
-        ],
+          {} @schema({"$ref":"#"})
+        ]
       ],
       maxItems: 10,
       minItems: 5,
       uniqueItems: false,
       additionalItems: [ @compound("oneOf")
         true,
-        {}, @schema({"$ref":"#"})
+        {} @schema({"$ref":"#"})
       ],
       contains: {}, @schema({"$ref":"#"})
 
       enum: [
-        {}, @anytype
+        {} @anytype
       ],
       const: { @anytype
       },
 
       // compound
       not: [
-        {}, @schema({"$ref":"#"})
+        {} @schema({"$ref":"#"})
       ],
       allOf: [
-        {}, @schema({"$ref":"#"})
+        {} @schema({"$ref":"#"})
       ],
       anyOf: [
-        {}, @schema({"$ref":"#"})
+        {} @schema({"$ref":"#"})
       ],
       oneOf: [
-        {}, @schema({"$ref":"#"})
+        {} @schema({"$ref":"#"})
       ],
       if: [ @compound("oneOf")
         true,
-        {}, @schema({"$ref":"#"})
+        {} @schema({"$ref":"#"})
       ],
       then: [ @compound("oneOf")
         true,
-        {}, @schema({"$ref":"#"})
+        {} @schema({"$ref":"#"})
       ],
       else: [ @compound("oneOf")
         true,
-        {}, @schema({"$ref":"#"})
+        {} @schema({"$ref":"#"})
       ],
 
       // common
@@ -236,10 +242,10 @@
       default: { @schema({})
       },
       examples: [
-        {}, @anytype
+        {} @anytype
       ],
       readOnly: false,
-      writeOnly: false,
+      writeOnly: false
     },
     describe: "User login", @describe("Add a endpoint description")
     anytype: null, @describe("The type of value can be any")
@@ -247,6 +253,6 @@
     example: null, @describe("Add value to schema examples")
     pattern: "", @describe("Declare the key-value is a member of patternProperties other than properties")
     def: "User", @describe("Def a type which can be reused with @ref")
-    ref: "User", @describe("Ref a type which have been defined in @def")
-  },
+    ref: "User" @describe("Ref a type which have been defined in @def")
+  }
 }
