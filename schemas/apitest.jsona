@@ -38,7 +38,7 @@
             delay: 1000 @describe("Interval between each retry (ms)")
           },
           loop: {
-            items: [ @describe("Iter value pass to `$run.item`") @schema({additionalItems:false})
+            items: [ @describe("Iter value pass to `$run.item`") @compound("oneOf")
               "a",
               [
                 "a"
