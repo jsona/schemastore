@@ -1,4 +1,4 @@
-{
+{ @jsonaschema("schema")
   value: { @def("Testgroup") @schema({additionalProperties:false})
     any: [ @pattern("^(?!req|res|run)([a-z0-9_]+)$") @compound("oneOf")
       { @def("Testcase") @describe("A test case") @schema({additionalProperties:false})

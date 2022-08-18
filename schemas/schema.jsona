@@ -1,4 +1,4 @@
-{
+{ @jsonaschema("schema")
   value: {
     value: {}, @anytype @describe("The JSONA value")
     annotations: {} @describe("Must be an object, key is annotation name(without @), value is annotation value")

@@ -1,4 +1,4 @@
-{
+{ @jsonaschema("schema")
   value: {
     endpoint: { @pattern(".*") @describe("Define a endpoint")
       route: "POST /login", @describe("Route info")

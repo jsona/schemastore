@@ -5,13 +5,6 @@
     "fileMatch": []
   },
   {
-    "name": "dotjsona",
-    "description": "A jsona config file",
-    "fileMatch": [
-      ".jsona"
-    ]
-  },
-  {
     "name": "apitest",
     "description": "A apitest file",
     "fileMatch": [
