@@ -35,7 +35,7 @@
     }
   },
   annotations: {
-    openapi: { @compound("oneOf") @describe("Global openapi object") @schema({type:["object","null"]})
+    openapi: { @describe("Global openapi object")
       openapi: "3.0.2",
       servers: [
         {
@@ -137,7 +137,7 @@
     },
     withHeader: null, @describe("Also describe res headers")
     contentType: "application/xml", @describe("Set content-type")
-    schema: { @describe("Use custom schema")
+    schema: { @describe("Use custom schema") @def("Schema")
       type: [ @compound("oneOf")
         "object", @def("SchemaType")
           @schema({
@@ -186,13 +186,13 @@
       },
       additionalProperties: [ @compound("oneOf")
         true,
-        {} @schema({"$ref":"#"})
+        {} @schema({"$ref":"#/$defs/Schema"})
       ],
       // For array
       items: [ @compound("oneOf")
-        {}, @schema({"$ref":"#"})
+        {}, @schema({"$ref":"#/$defs/Schema"})
         [
-          {} @schema({"$ref":"#"})
+          {} @schema({"$ref":"#/$defs/Schema"})
         ]
       ],
       maxItems: 10,
@@ -200,9 +200,9 @@
       uniqueItems: false,
       additionalItems: [ @compound("oneOf")
         true,
-        {} @schema({"$ref":"#"})
+        {} @schema({"$ref":"#/$defs/Schema"})
       ],
-      contains: {}, @schema({"$ref":"#"})
+      contains: {}, @schema({"$ref":"#/$defs/Schema"})
 
       enum: [
         {} @anytype
@@ -212,28 +212,28 @@
 
       // compound
       not: [
-        {} @schema({"$ref":"#"})
+        {} @schema({"$ref":"#/$defs/Schema"})
       ],
       allOf: [
-        {} @schema({"$ref":"#"})
+        {} @schema({"$ref":"#/$defs/Schema"})
       ],
       anyOf: [
-        {} @schema({"$ref":"#"})
+        {} @schema({"$ref":"#/$defs/Schema"})
       ],
       oneOf: [
-        {} @schema({"$ref":"#"})
+        {} @schema({"$ref":"#/$defs/Schema"})
       ],
       if: [ @compound("oneOf")
         true,
-        {} @schema({"$ref":"#"})
+        {} @schema({"$ref":"#/$defs/Schema"})
       ],
       then: [ @compound("oneOf")
         true,
-        {} @schema({"$ref":"#"})
+        {} @schema({"$ref":"#/$defs/Schema"})
       ],
       else: [ @compound("oneOf")
         true,
-        {} @schema({"$ref":"#"})
+        {} @schema({"$ref":"#/$defs/Schema"})
       ],
 
       // common
@@ -247,11 +247,15 @@
       readOnly: false,
       writeOnly: false
     },
-    describe: "User login", @describe("Add a endpoint description")
+    describe: "", @describe("Add a description")
     anytype: null, @describe("The type of value can be any")
-    optional: null, @describe("Marker field is optional")
-    example: null, @describe("Add value to schema examples")
+    optional: null, @describe("Mark a field is optional")
+    example: null, @describe("Add example for parameter/mediaType")
     pattern: "", @describe("Declare the key-value is a member of patternProperties other than properties")
+    default: null, @describe("Set value as default")
+    compound: "anyOf",
+      @describe("Declare the array is for compound keywords like anyOf,oneOf,anyOf other than array value")
+      @schema({enum:["anyOf","oneOf","allOf"]})
     def: "User", @describe("Def a type which can be reused with @ref")
     ref: "User" @describe("Ref a type which have been defined in @def")
   }
