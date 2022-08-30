@@ -35,6 +35,9 @@
       minLength: 6,
       pattern: "[abc]+",
       format: "uuid",
+      contentEncoding: "base64",
+      contentMediaType: "image/png",
+
       // For object
       properties: {
         any: { @pattern(".*")
@@ -53,12 +56,19 @@
         true,
         {} @schema({"$ref":"#/$defs/Schema"})
       ],
-
-      enum: [
-        {} @anytype
-      ],
-      const: { @anytype
+      dependentRequired: {
+        any: ["foo"] @pattern(".*")
       },
+      dependentSchemas: {
+        any: { @pattern(".*") @schema({"$ref":"#/$defs/Schema"})
+        }
+      },
+      propertyNames: { @schema({"$ref":"#/$defs/Schema"})
+      },
+      unevaluatedProperties: [ @compound("oneOf")
+        true,
+        {} @schema({"$ref":"#/$defs/Schema"})
+      ],
 
       // For array
       items: [ @compound("oneOf")
@@ -75,6 +85,12 @@
         {} @schema({"$ref":"#/$defs/Schema"})
       ],
       contains: {}, @schema({"$ref":"#/$defs/Schema"})
+      maxContains: 10,
+      minContains: 10,
+      unevaluatedItems: [ @compound("oneOf")
+        true,
+        {} @schema({"$ref":"#/$defs/Schema"})
+      ],
 
       // compound
       not: [
@@ -107,6 +123,11 @@
       description: "",
       default: { @anytype
       },
+      enum: [
+        {} @anytype
+      ],
+      const: { @anytype
+      },
       examples: [
         {} @anytype
       ],
@@ -122,6 +143,6 @@
       @describe("Declare the array is for compound keywords like anyOf,oneOf,anyOf other than array value")
       @schema({enum:["anyOf","oneOf","allOf"]})
     def: "User", @describe("Def a type which can be reused with @ref")
-    ref: "User", @describe("Ref a type which have been defined in @def")
+    ref: "User" @describe("Ref a type which have been defined in @def")
   }
 }
