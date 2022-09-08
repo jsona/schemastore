@@ -1,3 +1,5 @@
 { @jsonaschema("schema")
-  value: {} @anytype
+  _: {
+    value: {} @anytype
+  }
 }

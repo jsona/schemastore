@@ -1,10 +1,13 @@
 { @jsonaschema("schema")
-  value: {
-    value: {}, @anytype @describe("The JSONA value")
-    annotations: {} @describe("Must be an object, key is annotation name(without @), value is annotation value")
+  _: {
+    value: {
+      key: { @pattern("^[A-Za-z0-9_-]+$")
+        value: {} @anytype @describe("The JSONA value")
+      }
+    }
   },
-  annotations: {
-    schema: { @describe("Use custom schema") @def("Schema")
+  schema: {
+    value: { @describe("Use custom schema") @def("Schema")
       type: [ @compound("oneOf")
         "object", @def("SchemaType")
           @schema({
@@ -133,16 +136,32 @@
       ],
       readOnly: false,
       writeOnly: false
-    },
-    describe: "", @describe("Add a description")
-    anytype: null, @describe("The type of value can be any")
-    required: null, @describe("Mark a field is required")
-    pattern: "", @describe("Declare the key-value is a member of patternProperties other than properties")
-    default: null, @describe("Set value as default")
-    compound: "anyOf",
+    }
+  },
+  describe: {
+    value: "" @describe("Add a description")
+  },
+  anytype: {
+    value: null @describe("The type of value can be any")
+  },
+  required: {
+    value: null @describe("Mark a field is required")
+  },
+  pattern: {
+    value: "" @describe("Declare the key-value is a member of patternProperties other than properties")
+  },
+  default: {
+    value: null @describe("Set value as default")
+  },
+  compound: {
+    value: "anyOf"
       @describe("Declare the array is for compound keywords like anyOf,oneOf,anyOf other than array value")
       @schema({enum:["anyOf","oneOf","allOf"]})
-    def: "User", @describe("Def a type which can be reused with @ref")
-    ref: "User" @describe("Ref a type which have been defined in @def")
+  },
+  def: {
+    value: "User" @describe("Def a type which can be reused with @ref")
+  },
+  ref: {
+    value: "User" @describe("Ref a type which have been defined in @def")
   }
 }

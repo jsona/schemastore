@@ -1,63 +1,71 @@
 { @jsonaschema("schema")
-  value: { @def("Testgroup") @schema({additionalProperties:false})
-    any: [ @pattern("^(?!req|res|run)([a-z0-9_]+)$") @compound("oneOf")
-      { @def("Testcase") @describe("A test case") @schema({additionalProperties:false})
-        req: {
-          url: "/posts/{id}", @describe("Request url")
-          method: "get",
-            @describe("Request method")
-            @schema({enum:["get","post","delete","options","put","head","patch"]})
-          query: { @describe("Request header object")
-            any: { @pattern(".*") @anytype
+  _: {
+    value: { @def("Testgroup") @schema({additionalProperties:false})
+      any: [ @pattern("^(?!req|res|run)([a-z0-9_]+)$") @compound("oneOf")
+        { @def("Testcase") @describe("A test case") @schema({additionalProperties:false})
+          req: {
+            url: "/posts/{id}", @describe("Request url")
+            method: "get",
+              @describe("Request method")
+              @schema({enum:["get","post","delete","options","put","head","patch"]})
+            query: { @describe("Request header object")
+              any: { @pattern(".*") @anytype
+              }
+            },
+            params: { @describe("Request path params")
+              any: { @pattern(".*") @anytype
+              }
+            },
+            headers: { @describe("Request headers")
+              any: { @pattern(".*") @anytype
+              }
+            },
+            body: { @anytype @describe("Request body data")
             }
           },
-          params: { @describe("Request path params")
-            any: { @pattern(".*") @anytype
-            }
+          res: {
+            status: 200, @describe("Response status code")
+            headers: { @describe("Response headers, skip check if omitted")
+              any: { @pattern(".*") @anytype
+              }
+            },
+            body: {} @anytype @describe("Response body data")
           },
-          headers: { @describe("Request headers")
-            any: { @pattern(".*") @anytype
-            }
-          },
-          body: { @anytype @describe("Request body data")
+          run: { @describe("Control test execution")
+            skip: "", @describe("Skip the test when eval true")
+            delay: 1000, @describe("Run the test case after waiting for a period of time")
+            retry: {
+              stop: "", @describe("Whether to stop retry")
+              delay: 1000 @describe("Interval between each retry (ms)")
+            },
+            loop: {
+              items: [ @describe("Iter value pass to `$run.item`") @compound("oneOf")
+                "a",
+                [
+                  "a"
+                ]
+              ],
+              delay: 1000 @describe("Interval between each loop (ms)")
+            },
+            dump: true @describe("Force print req/res data when true")
           }
         },
-        res: {
-          status: 200, @describe("Response status code")
-          headers: { @describe("Response headers, skip check if omitted")
-            any: { @pattern(".*") @anytype
-            }
-          },
-          body: {} @anytype @describe("Response body data")
-        },
-        run: { @describe("Control test execution")
-          skip: "", @describe("Skip the test when eval true")
-          delay: 1000, @describe("Run the test case after waiting for a period of time")
-          retry: {
-            stop: "", @describe("Whether to stop retry")
-            delay: 1000 @describe("Interval between each retry (ms)")
-          },
-          loop: {
-            items: [ @describe("Iter value pass to `$run.item`") @compound("oneOf")
-              "a",
-              [
-                "a"
-              ]
-            ],
-            delay: 1000 @describe("Interval between each loop (ms)")
-          },
-          dump: true @describe("Force print req/res data when true")
+        { @ref("Testgroup") @describe("A test group")
         }
-      },
-      { @ref("Testgroup") @describe("A test group")
-      }
-    ]
+      ]
+    }
   },
-  annotations: {
-    module: "auth", @describe("Import submodule")
-    jslib: "lib", @describe("Import user-defined functions")
-    mixin: "mixin", @describe("Import mixin file")
-    client: [ @compound("oneOf") @describe("Setup client or use client")
+  module: {
+    value: "auth" @describe("Import submodule")
+  },
+  jslib: {
+    value: "lib" @describe("Import user-defined functions")
+  },
+  mixin: {
+    value: "mixin" @describe("Import mixin file")
+  },
+  client: {
+    value: [ @compound("oneOf") @describe("Setup client or use client")
       { @schema({additionalProperties:false}) // For define a client
         name: "apiv1",
         kind: "http", @schema({enum:["http","echo"]})
@@ -65,18 +73,42 @@
         }
       },
       "apiv1" // For use a client
-    ],
-    describe: "Test login", @describe("Add a test description")
-    trans: `JSON.stringify($)`, @describe("Transform data")
-    group: null, @describe("Mark as case group")
-    eval: null, @describe("Use js expr to generate data (in req) and verify data(in res)")
-    mock: null, @describe("Use mock function to generate data")
-    file: null, @describe("Use a file")
-    every: null, @describe("A set of assertions are passed before the test passes")
-    some: null, @describe("If one of a set of assertions passes, the test passes")
-    partial: null, @describe("Mark only partial verification instead of congruent verification")
-    type: null, @describe("Mark only verifies the type of data")
-    optional: null, @describe("Marker field is optional")
-    nullable: null @describe("Marker field can be null")
+    ]
+  },
+  describe: {
+    value: "Test login" @describe("Add a test description")
+  },
+  trans: {
+    value: `JSON.stringify($)` @describe("Transform data")
+  },
+  group: {
+    value: null @describe("Mark as case group")
+  },
+  eval: {
+    value: null @describe("Use js expr to generate data (in req) and verify data(in res)")
+  },
+  mock: {
+    value: null @describe("Use mock function to generate data")
+  },
+  file: {
+    value: null @describe("Use a file")
+  },
+  every: {
+    value: null @describe("A set of assertions are passed before the test passes")
+  },
+  some: {
+    value: null @describe("If one of a set of assertions passes, the test passes")
+  },
+  partial: {
+    value: null @describe("Mark only partial verification instead of congruent verification")
+  },
+  type: {
+    value: null @describe("Mark only verifies the type of data")
+  },
+  optional: {
+    value: null @describe("Marker field is optional")
+  },
+  nullable: {
+    value: null @describe("Marker field can be null")
   }
 }

@@ -1,41 +1,43 @@
 { @jsonaschema("schema")
-  value: {
-    endpoint: { @pattern(".*") @describe("Define a endpoint")
-      route: "POST /login", @describe("Route info")
-      req: { @describe("Define request object")
-        query: { @describe("Request header object")
-          any: { @pattern(".*") @anytype
-          }
-        },
-        params: { @describe("Request path params")
-          any: { @pattern(".*") @anytype
-          }
-        },
-        headers: { @describe("Request headers")
-          any: { @pattern(".*") @anytype
-          }
-        },
-        body: { @anytype @describe("Request body data")
-        }
-      },
-      res: {
-        200: [ @pattern("\\d{3}") @compound("anyOf")
-          { @schema({additionalProperties:false})
-            headers: { @describe("Response headers")
-              any: { @pattern(".*") @anytype
-              }
-            },
-            body: { @describe("Response body data") @anytype
+  _: {
+    value: {
+      endpoint: { @pattern(".*") @describe("Define a endpoint")
+        route: "POST /login", @describe("Route info")
+        req: { @describe("Define request object")
+          query: { @describe("Request header object")
+            any: { @pattern(".*") @anytype
             }
           },
-          { @describe("Response body data") @anytype
+          params: { @describe("Request path params")
+            any: { @pattern(".*") @anytype
+            }
+          },
+          headers: { @describe("Request headers")
+            any: { @pattern(".*") @anytype
+            }
+          },
+          body: { @anytype @describe("Request body data")
           }
-        ]
+        },
+        res: {
+          200: [ @pattern("\\d{3}") @compound("anyOf")
+            { @schema({additionalProperties:false})
+              headers: { @describe("Response headers")
+                any: { @pattern(".*") @anytype
+                }
+              },
+              body: { @describe("Response body data") @anytype
+              }
+            },
+            { @describe("Response body data") @anytype
+            }
+          ]
+        }
       }
     }
   },
-  annotations: {
-    openapi: { @describe("Global openapi object")
+  openapi: {
+    value: { @describe("Global openapi object")
       openapi: "3.0.2",
       servers: [
         {
@@ -114,8 +116,10 @@
           ]
         }
       ]
-    },
-    endpoint: { @describe("Define a endpoint")
+    }
+  },
+  endpoint: {
+    value: { @describe("Define a endpoint")
       summary: "User login", @describe("An optional, string summary, intended to apply to all operations in this path")
       description: `User login with user and pass`, @describe("An optional, string description, intended to apply to all operations in this path. CommonMark syntax MAY be used for rich text representation")
       tags: [ @describe("A list of tags for API documentation control. Tags can be used for logical grouping of operations by resources or any other qualifier.")
@@ -134,10 +138,16 @@
         }
       },
       deprecated: false @describe("Declares this operation to be deprecated. Consumers SHOULD refrain from usage of the declared operation")
-    },
-    withHeader: null, @describe("Also describe res headers")
-    contentType: "application/xml", @describe("Set content-type")
-    schema: { @describe("Use custom schema") @def("Schema")
+    }
+  },
+  withHeader: {
+    value: null @describe("Also describe res headers")
+  },
+  contentType: {
+    value: "application/xml" @describe("Set content-type")
+  },
+  schema: {
+    value: { @describe("Use custom schema") @def("Schema")
       type: [ @compound("oneOf")
         "object", @def("SchemaType")
           @schema({
@@ -266,17 +276,35 @@
       ],
       readOnly: false,
       writeOnly: false
-    },
-    describe: "", @describe("Add a description")
-    anytype: null, @describe("The type of value can be any")
-    optional: null, @describe("Mark a field is optional")
-    example: null, @describe("Add example for parameter/mediaType")
-    pattern: "", @describe("Declare the key-value is a member of patternProperties other than properties")
-    default: null, @describe("Set value as default")
-    compound: "anyOf",
+    }
+  },
+  describe: {
+    value: "" @describe("Add a description")
+  },
+  anytype: {
+    value: null @describe("The type of value can be any")
+  },
+  optional: {
+    value: null @describe("Mark a field is optional")
+  },
+  example: {
+    value: null @describe("Add example for parameter/mediaType")
+  },
+  pattern: {
+    value: "" @describe("Declare the key-value is a member of patternProperties other than properties")
+  },
+  default: {
+    value: null @describe("Set value as default")
+  },
+  compound: {
+    value: "anyOf"
       @describe("Declare the array is for compound keywords like anyOf,oneOf,anyOf other than array value")
       @schema({enum:["anyOf","oneOf","allOf"]})
-    def: "User", @describe("Def a type which can be reused with @ref")
-    ref: "User" @describe("Ref a type which have been defined in @def")
+  },
+  def: {
+    value: "User" @describe("Def a type which can be reused with @ref")
+  },
+  ref: {
+    value: "User" @describe("Ref a type which have been defined in @def")
   }
 }
