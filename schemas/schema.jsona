@@ -1,10 +1,6 @@
 { @jsonaschema("schema")
   _: {
-    value: {
-      key: { @pattern("^[A-Za-z0-9_-]+$")
-        value: {} @anytype @describe("The JSONA value")
-      }
-    }
+    value: {} @anytype
   },
   schema: {
     value: { @describe("Use custom schema") @def("Schema")
