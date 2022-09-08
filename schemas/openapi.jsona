@@ -137,147 +137,135 @@
     },
     withHeader: null, @describe("Also describe res headers")
     contentType: "application/xml", @describe("Set content-type")
-    schema: {
-      schema: { @describe("Use custom schema") @def("Schema")
-        type: [ @compound("oneOf")
-          "object", @def("SchemaType")
-            @schema({
-              enum: [
-                "array",
-                "boolean",
-                "integer",
-                "null",
-                "number",
-                "object",
-                "string"
-              ]
-            })
-          [
-            "object" @ref("SchemaType")
-          ]
-        ],
+    schema: { @describe("Use custom schema") @def("Schema")
+      type: [ @compound("oneOf")
+        "object", @def("SchemaType")
+          @schema({
+            enum: [
+              "array",
+              "boolean",
+              "integer",
+              "null",
+              "number",
+              "object",
+              "string"
+            ]
+          })
+        [
+          "object" @ref("SchemaType")
+        ]
+      ],
 
-        // For number
-        maximum: 10,
-        minimum: 5,
-        exclusiveMaximum: false,
-        exclusiveMinimum: false,
-        multipleOf: 2.0,
+      // For number
+      maximum: 10,
+      minimum: 5,
+      exclusiveMaximum: false,
+      exclusiveMinimum: false,
+      multipleOf: 2.0,
 
-        // For string
-        maxLength: 16,
-        minLength: 6,
-        pattern: "[abc]+",
-        format: "uuid",
-        contentEncoding: "base64",
-        contentMediaType: "image/png",
+      // For string
+      maxLength: 16,
+      minLength: 6,
+      pattern: "[abc]+",
+      format: "uuid",
+      contentEncoding: "base64",
+      contentMediaType: "image/png",
 
-        // For object
-        properties: {
-          any: { @pattern(".*")
-          }
-        },
-        maxProperties: 10,
-        minProperties: 5,
-        required: [
-          "key"
-        ],
-        patternProperties: {
-          any: { @pattern(".*")
-          }
-        },
-        additionalProperties: [ @compound("oneOf")
-          true,
-          {} @schema({"$ref":"#/$defs/Schema"})
-        ],
-        dependentRequired: {
-          any: ["foo"] @pattern(".*")
-        },
-        dependentSchemas: {
-          any: { @pattern(".*") @schema({"$ref":"#/$defs/Schema"})
-          }
-        },
-        propertyNames: { @schema({"$ref":"#/$defs/Schema"})
-        },
-        unevaluatedProperties: [ @compound("oneOf")
-          true,
-          {} @schema({"$ref":"#/$defs/Schema"})
-        ],
-
-        // For array
-        items: [ @compound("oneOf")
-          {}, @schema({"$ref":"#/$defs/Schema"})
-          [
-            {} @schema({"$ref":"#/$defs/Schema"})
-          ]
-        ],
-        maxItems: 10,
-        minItems: 5,
-        uniqueItems: false,
-        additionalItems: [ @compound("oneOf")
-          true,
-          {} @schema({"$ref":"#/$defs/Schema"})
-        ],
-        contains: {}, @schema({"$ref":"#/$defs/Schema"})
-        maxContains: 10,
-        minContains: 10,
-        unevaluatedItems: [ @compound("oneOf")
-          true,
-          {} @schema({"$ref":"#/$defs/Schema"})
-        ],
-
-        // compound
-        not: [
-          {} @schema({"$ref":"#/$defs/Schema"})
-        ],
-        allOf: [
-          {} @schema({"$ref":"#/$defs/Schema"})
-        ],
-        anyOf: [
-          {} @schema({"$ref":"#/$defs/Schema"})
-        ],
-        oneOf: [
-          {} @schema({"$ref":"#/$defs/Schema"})
-        ],
-        if: [ @compound("oneOf")
-          true,
-          {} @schema({"$ref":"#/$defs/Schema"})
-        ],
-        then: [ @compound("oneOf")
-          true,
-          {} @schema({"$ref":"#/$defs/Schema"})
-        ],
-        else: [ @compound("oneOf")
-          true,
-          {} @schema({"$ref":"#/$defs/Schema"})
-        ],
-
-        // common
-        title: "",
-        description: "",
-        default: { @anytype
-        },
-        enum: [
-          {} @anytype
-        ],
-        const: { @anytype
-        },
-        examples: [
-          {} @anytype
-        ],
-        readOnly: false,
-        writeOnly: false
+      // For object
+      properties: {
+        any: { @pattern(".*")
+        }
       },
-      describe: "", @describe("Add a description")
-      anytype: null, @describe("The type of value can be any")
-      required: null, @describe("Mark a field is required")
-      pattern: "", @describe("Declare the key-value is a member of patternProperties other than properties")
-      default: null, @describe("Set value as default")
-      compound: "anyOf",
-        @describe("Declare the array is for compound keywords like anyOf,oneOf,anyOf other than array value")
-        @schema({enum:["anyOf","oneOf","allOf"]})
-      def: "User", @describe("Def a type which can be reused with @ref")
-      ref: "User" @describe("Ref a type which have been defined in @def")
+      maxProperties: 10,
+      minProperties: 5,
+      required: [
+        "key"
+      ],
+      patternProperties: {
+        any: { @pattern(".*")
+        }
+      },
+      additionalProperties: [ @compound("oneOf")
+        true,
+        {} @schema({"$ref":"#/$defs/Schema"})
+      ],
+      dependentRequired: {
+        any: ["foo"] @pattern(".*")
+      },
+      dependentSchemas: {
+        any: { @pattern(".*") @schema({"$ref":"#/$defs/Schema"})
+        }
+      },
+      propertyNames: { @schema({"$ref":"#/$defs/Schema"})
+      },
+      unevaluatedProperties: [ @compound("oneOf")
+        true,
+        {} @schema({"$ref":"#/$defs/Schema"})
+      ],
+
+      // For array
+      items: [ @compound("oneOf")
+        {}, @schema({"$ref":"#/$defs/Schema"})
+        [
+          {} @schema({"$ref":"#/$defs/Schema"})
+        ]
+      ],
+      maxItems: 10,
+      minItems: 5,
+      uniqueItems: false,
+      additionalItems: [ @compound("oneOf")
+        true,
+        {} @schema({"$ref":"#/$defs/Schema"})
+      ],
+      contains: {}, @schema({"$ref":"#/$defs/Schema"})
+      maxContains: 10,
+      minContains: 10,
+      unevaluatedItems: [ @compound("oneOf")
+        true,
+        {} @schema({"$ref":"#/$defs/Schema"})
+      ],
+
+      // compound
+      not: [
+        {} @schema({"$ref":"#/$defs/Schema"})
+      ],
+      allOf: [
+        {} @schema({"$ref":"#/$defs/Schema"})
+      ],
+      anyOf: [
+        {} @schema({"$ref":"#/$defs/Schema"})
+      ],
+      oneOf: [
+        {} @schema({"$ref":"#/$defs/Schema"})
+      ],
+      if: [ @compound("oneOf")
+        true,
+        {} @schema({"$ref":"#/$defs/Schema"})
+      ],
+      then: [ @compound("oneOf")
+        true,
+        {} @schema({"$ref":"#/$defs/Schema"})
+      ],
+      else: [ @compound("oneOf")
+        true,
+        {} @schema({"$ref":"#/$defs/Schema"})
+      ],
+
+      // common
+      title: "",
+      description: "",
+      default: { @anytype
+      },
+      enum: [
+        {} @anytype
+      ],
+      const: { @anytype
+      },
+      examples: [
+        {} @anytype
+      ],
+      readOnly: false,
+      writeOnly: false
     },
     describe: "", @describe("Add a description")
     anytype: null, @describe("The type of value can be any")
